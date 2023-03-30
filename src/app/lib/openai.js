@@ -12,7 +12,7 @@ const apiUrl = 'https://api.openai.com/v1/images/generations';
 //       prompt: prompt,
 //       size: '256x256',
 //       response_format: 'url',
-//       n: 2,
+//       n: 1,
 //     }),
 //   });
 
