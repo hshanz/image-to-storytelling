@@ -1,6 +1,15 @@
-const apiUrl = 'https://api.openai.com/v1/images/generations';
+import { Configuration, OpenAIApi } from "openai";
 
-// async function generateImage (prompt, apiKey){
+const secret = process.env.NEXT_PUBLIC_API_KEY;
+
+const configuration = new Configuration({
+  apiKey: secret,
+});
+const openai = new OpenAIApi(configuration);
+
+//const apiUrl = 'https://api.openai.com/v1/images/generations';
+
+// export async function generateImage (prompt){
 //   const response = await fetch(apiUrl, {
 //     method: 'POST',
 //     headers: {
@@ -20,14 +29,56 @@ const apiUrl = 'https://api.openai.com/v1/images/generations';
 //     throw new Error(`Failed to generate image: ${response.statusText}`);
 //   }
 
+//   console.log('Done')
 //   const data = await response.json();
+//   console.log('Server data: ',data)
 //   return data.data;
 // };
 
-async function generateImage(){
+export const generateImage = async (prompt) => {
+  const response = await openai.createImage({
+    prompt: prompt,
+    n: 1,
+    size: "512x512",
+  });
 
-    const response = await fetch('https://cataas.com/cat')
-    return response.blob()  
-}
+  return response.data;
+};
 
-export default generateImage;
+export const createPrompt = async (message) => {
+  const completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "user",
+        content:
+          "Your job is to create prompts to the image generation AI DALL-E using short storys. The prompts should be inspiring and a bit abstract. Your prompts should include a description, notes and image tags",
+      },
+      {
+        role: "user",
+        content: `Convert this story to a DALL-E prompt: ${message}`,
+      },
+    ],
+  });
+
+  return completion.data;
+};
+
+export const getEmotions = async (message) => {
+  const completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "user",
+        content:
+          "Your job is to classify the emotion and tone of short storys in 15 words or less, Your output should be Emotions: *emotions* , Tone: *tone of story* ",
+      }, 
+      {
+        role: 'user',
+        content: `Classify this story ${message}`
+      }
+    ],
+  });
+
+  return completion.data;
+};
