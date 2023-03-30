@@ -8,7 +8,6 @@ export default function Home() {
   const [prompt, setPrompt] = useState();
   const [text, setText] = useState("Once upon a time");
   const textArea = useRef();
-  const apiKey = process.env.API_KEY;
 
   useEffect(() => {
     const dalleImage = async (prompt1) => {
@@ -16,10 +15,10 @@ export default function Home() {
       setImages(data);
     };
 
-    // const interval = setInterval(() => {
-    //   console.log("new image");
-    //   console.log(textArea.current.value);
-    // }, 10000);
+    const interval = setInterval(() => {
+      console.log("new image");
+      console.log(textArea.current.value);
+    }, 10000);
 
     dalleImage(prompt);
 
