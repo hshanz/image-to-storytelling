@@ -1,15 +1,16 @@
 .main {
-  background-color: white;
+  background-color:rgb(53, 53, 53);
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  max-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
   padding: 3rem;
   gap: 3rem;
 }
 
 .textHolder{
-  width: 55vw;
+  min-width: 60%;
   height: inherit;
   display: flex;
   flex-direction: column;
@@ -17,47 +18,81 @@
   gap: 30px;
 }
 
-.formBox{
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
+.header{
+  color: aquamarine;
+  font-size: xxx-large;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 
-.promptBox{
-  width: 30vw;
-  height: 40px;
-  resize: none;
-  font-size: large;
-}
-
-.promptSubmit{
-  width: auto;
-  height: 40px;
 }
 
 .textBox{
   height: 100%;
-  width: inherit;
+  width: 100%;
   font-size: x-large;
   resize: none;
+  border-radius: 10px;
 }
 
 .pictureBox{
   height: inherit;
   width: 100%;
-  background-color:darkblue;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 2rem;
-  padding: 2rem;
   
 }
 
 .picHolder {
-  height: 400px;
-  width: 400px;
+  height: 512px;
+  width: 512px;
   background-color: antiquewhite;
+  border-radius: 10px;
 
+}
+
+.contentHolder{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.emotionHolder {
+  width: 512px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.emotionBox{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: larger;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.emotionHeader{
+  width: 512px;
+  height: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: larger;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: rgb(107, 107, 107);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
