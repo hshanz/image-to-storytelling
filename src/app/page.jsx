@@ -41,11 +41,13 @@ export default function Home() {
      getPrompt(textArea.current.value)
      console.log('Done')
 
-    }, 90000);
+    }, 60000);
 
-    return () => clearInterval(interval);
     dalleImage('Evening, Forest, Lost, Old House and Rain, abstract')
     console.log('start')
+
+    return () => clearInterval(interval);
+   
 
   }, []);
 
