@@ -41,7 +41,7 @@ export default function Home() {
      getPrompt(textArea.current.value)
      console.log('Done')
 
-    }, 60000);
+    }, 90000);
 
     dalleImage('Evening, Forest, Lost, Old House and Rain, abstract')
     console.log('start')
