@@ -1,0 +1,29 @@
+.holder{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.dot{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 30px;
+    height: 30px;
+}
+
+.disabled{
+    pointer-events: none;
+    border: 2px solid #858585;
+}
+
+.selected{
+    background-color: #2dfdaa;
+    border: 2px solid #2dfdaa;
+}
+
+
+.dot:hover{
+    border: 2px solid #2dfdaa;
+}
+

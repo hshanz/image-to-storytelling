@@ -2,17 +2,13 @@
 import styles from "./page.module.css";
 import { generateImage, createPrompt, getEmotions, getImage } from "./lib/openai.mjs";
 import { useEffect, useRef, useState } from "react";
+import DotSelector from "./components/DotSelector";
 
 export default function Home() {
   const [images, setImages] = useState([{}]);
   const [text, setText] = useState("Once upon a time there was a cat going to a castle, to find food. The cat was happy but very hungry, but the prospect of food made the cat very excited for the future.");
-  const [tone, setTone] = useState('Optimistic and hopeful with a bit of anticipation and something')
-  const [emotions, setEmotions] = useState({
-    Happy: "#ffdab9",
-    Sad: "#add8e6",
-    Angry: "#ff7f50",
-    Calm: "#90ee90"
-  })
+  const [index, setIndex] = useState(1)
+  const [pictures, setPictures] = useState(['bild1.JPG','bild2.JPG','bild3.JPG','bild4.JPG','bild5.JPG'])
   const textArea = useRef();
   
 
@@ -36,34 +32,33 @@ export default function Home() {
 
     }
 
-    const interval = setInterval(() => {
-     getToneEmotion(textArea.current.value)
-     getPrompt(textArea.current.value)
-     console.log('Done')
+    // const interval = setInterval(() => {
+    //  getToneEmotion(textArea.current.value)
+    //  getPrompt(textArea.current.value)
+    //  console.log('Done')
 
-    }, 90000);
+    // }, 90000);
 
-    return () => clearInterval(interval);
-    dalleImage('Evening, Forest, Lost, Old House and Rain, abstract')
-    console.log('start')
 
+    // return () => clearInterval(interval);
+    
   }, []);
+
+  useEffect(() =>{
+    console.log(index)
+  },[index])
 
 
 
   return (
     <main className={styles.main}>
-      <span className={styles.header}> Chat-GPT & DALL-E Writing tool </span>
+      
 
       <div className={styles.contentHolder}>
         <div className={styles.textHolder}>
-        <div className={styles.inspoTags}> 
-          <div className={styles.tag} style={{'backgroundColor':'rgb(107, 107, 107)', 'color':"white"}}>Inspiration:</div>
-          <div className={styles.tag}>Evening</div>
-          <div className={styles.tag}>Forest</div>
-          <div className={styles.tag}>Lost</div>
-          <div className={styles.tag}>Old House</div>
-          <div className={styles.tag}>Rain</div>
+        <div className={styles.headers}>
+        <span className={styles.header}> Chat-GPT & DALL-E Writing tool </span>
+        <span className={styles.inspo} ><b>Inspiration:</b> Evening, Forest, Lost, Old house, Rain</span>
         </div>
 
           <textarea
@@ -74,28 +69,23 @@ export default function Home() {
         </div>
 
         <div className={styles.pictureBox}>
-        <div className={styles.emotionHolder}>
-          <div className={styles.emotionHeader}>Emotions</div>
-          {Object.entries(emotions).map((e,index) => {return (<div key={index} className={styles.emotionBox} style={{ 'backgroundColor':e[1]}}>{e[0]}</div>)})}
-          
-        </div>
+          <DotSelector setIndex={setIndex} _index={pictures.length} />
 
           <img
-            src={images[0]?.url}
+            src={pictures[index]}
             alt="cat"
             className={styles.picHolder}
           />
-          
-        
 
-        
+          <div className={styles.genreateField}>
+            <div className={styles.input} >
+              <input className={styles.inputField} type="text" placeholder=" e.g cartoon, realistic, abstract"></input> 
+              <span className={styles.inputHint}>Keep it empty to generate a random style picture!</span>
+            </div>
+            
+            <button className={styles.genButton} onClick={() => setPictures([...pictures,2])}>Generate</button>
 
-        <div className={styles.emotionHolder}>
-        <span className={styles.emotionHeader}> Tone </span>
-          <div className={styles.emotionHeader}>{tone}</div>
-          
-        </div>
-
+          </div>
         
 
         </div>
