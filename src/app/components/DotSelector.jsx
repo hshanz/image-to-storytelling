@@ -18,9 +18,9 @@ const DotSelector = ({setIndex, _index}) => {
             child.classList.add(styles.disabled)
         }
 
-        console.log(index)
         let temp = parentNode.current.childNodes.item(selected)
         temp.classList.add(styles.selected)
+        setIndex(selected)
 
     },[_index])
 
@@ -33,7 +33,6 @@ const DotSelector = ({setIndex, _index}) => {
             }
         }
     
-       console.log('ss')
        e.target.classList.add(styles.selected)
        setIndex(selected)
     }

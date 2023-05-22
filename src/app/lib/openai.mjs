@@ -7,9 +7,9 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export const generateImage = async (prompt) => {
+export const generateImage = async (prompt,style) => {
     const response = await openai.createImage({
-        prompt: prompt,
+        prompt: prompt + ' in style ' +style,
         n: 1,
         size: "512x512",
     });
@@ -24,7 +24,7 @@ export const createPrompt = async (message) => {
             {
                 role: "user",
                 content:
-                    "Your job is to create prompts to the image generation AI DALL-E using short storys. The prompts should be inspiring and a bit abstract. Your prompts should include a description, notes and image tags",
+                    "Your job is to create prompts to the image generation AI DALL-E using short storys. Your prompts should include a description",
             },
             {
                 role: "user",

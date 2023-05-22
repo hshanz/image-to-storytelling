@@ -28,6 +28,11 @@
 
 }
 
+.disabled{
+  background-color: #93BFCF !important;
+  pointer-events: none;
+}
+
 .textBox{
   background-color: black;
   color: white;
