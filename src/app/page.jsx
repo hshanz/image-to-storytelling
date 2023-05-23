@@ -31,8 +31,10 @@ export default function Home() {
     if(pictures.length >= 4){
       e.target.classList.add(styles.disabled)
     }
+
     await getPrompt(textArea.current.value)
   }
+
 
 
 
