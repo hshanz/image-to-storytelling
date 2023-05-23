@@ -61,13 +61,15 @@ export default function Home() {
 
 
         <div className={styles.pictureBox}>
-          <DotSelector setIndex={setIndex} _index={pictures.length} />
+          
 
           <img
             src={pictures[index]}
             alt="cat"
             className={styles.picHolder}
           />
+
+          <DotSelector setIndex={setIndex} _index={pictures.length} />
 
           <div className={styles.genreateField}>
             <div className={styles.input} >
