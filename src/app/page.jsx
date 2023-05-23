@@ -2,102 +2,82 @@
 import styles from "./page.module.css";
 import { generateImage, createPrompt, getEmotions, getImage } from "./lib/openai.mjs";
 import { useEffect, useRef, useState } from "react";
+import DotSelector from "./components/DotSelector";
 
 export default function Home() {
+  const startImage = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-eD3kAsNhHAxrkFMORPJyd4fJ/user-xEsKyOeJcuQxEO4yhNfBxzno/img-nBxINkGcMeYzgmAVotz5Xv6z.png?st=2023-05-22T19%3A40%3A25Z&se=2023-05-22T21%3A40%3A25Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-05-22T05%3A48%3A10Z&ske=2023-05-23T05%3A48%3A10Z&sks=b&skv=2021-08-06&sig=75ik2pHmmkbJKeQi3kmhqV%2B2dA96Pkec7LIKZvpdFNA%3D'
   const [images, setImages] = useState([{}]);
+  const [words, setWords] = useState('')
   const [text, setText] = useState("Once upon a time there was a cat going to a castle, to find food. The cat was happy but very hungry, but the prospect of food made the cat very excited for the future.");
-  const [tone, setTone] = useState('Optimistic and hopeful with a bit of anticipation and something')
-  const [emotions, setEmotions] = useState({
-    Happy: "#ffdab9",
-    Sad: "#add8e6",
-    Angry: "#ff7f50",
-    Calm: "#90ee90"
-  })
+  const [index, setIndex] = useState(0)
+  const [pictures, setPictures] = useState([startImage])
   const textArea = useRef();
+  const genInput = useRef();
   
 
-  useEffect(() => {
-    const dalleImage = async (inputprompt) => {
-      const data = await generateImage(inputprompt);
-      setImages(data.data);
-      console.log('New image')
-    };
+  const dalleImage = async (inputprompt) => {
+    const styleIn = genInput.current.value
+    const data = await generateImage(inputprompt, styleIn);
+    setPictures([...pictures,data.data[0]?.url])
+    console.log('New image')
+  };
 
-    const getToneEmotion = async(message) =>{
-      const data = await getEmotions(message);
-      setEmotions(data.Emotions)
-      setTone(data.Tone)
-      console.log('New emotions and tone')
+  const getPrompt = async (story) =>{
+    const prompt = await createPrompt(story)
+    dalleImage(prompt)
+
+  }
+  const genPictures = async (e) =>{
+    if(pictures.length >= 4){
+      e.target.classList.add(styles.disabled)
     }
 
-    const getPrompt = async (story) =>{
-      const prompt = await createPrompt(story)
-      dalleImage(prompt)
+    await getPrompt(textArea.current.value)
+  }
 
-    }
-
-    const interval = setInterval(() => {
-     getToneEmotion(textArea.current.value)
-     getPrompt(textArea.current.value)
-     console.log('Done')
-
-    }, 90000);
-
-    dalleImage('Evening, Forest, Lost, Old House and Rain, abstract')
-    console.log('start')
-
-    return () => clearInterval(interval);
-   
-
-  }, []);
 
 
 
   return (
     <main className={styles.main}>
-      <span className={styles.header}> Chat-GPT & DALL-E Writing tool </span>
+      
 
       <div className={styles.contentHolder}>
         <div className={styles.textHolder}>
-        <div className={styles.inspoTags}> 
-          <div className={styles.tag} style={{'backgroundColor':'rgb(107, 107, 107)', 'color':"white"}}>Inspiration:</div>
-          <div className={styles.tag}>Evening</div>
-          <div className={styles.tag}>Forest</div>
-          <div className={styles.tag}>Lost</div>
-          <div className={styles.tag}>Old House</div>
-          <div className={styles.tag}>Rain</div>
+        <div className={styles.headers}>
+        <span className={styles.header}> Chat-GPT & DALL-E Writing tool </span>
+        <span className={styles.inspo} ><b>Inspiration:</b> Evening, Forest, Lost, Old house, Rain</span>
         </div>
 
           <textarea
             className={styles.textBox}
             defaultValue={text}
             ref={textArea}
+            onChange={(e) => setWords(e.target.value)} 
           ></textarea>
+
+        <span className={styles.inspo} > {words.split(' ').length} <b>words</b></span>
         </div>
+
 
         <div className={styles.pictureBox}>
-        <div className={styles.emotionHolder}>
-          <div className={styles.emotionHeader}>Emotions</div>
-          {Object.entries(emotions).map((e,index) => {return (<div key={index} className={styles.emotionBox} style={{ 'backgroundColor':e[1]}}>{e[0]}</div>)})}
-          
-        </div>
+          <DotSelector setIndex={setIndex} _index={pictures.length} />
 
           <img
-            src={images[0]?.url}
+            src={pictures[index]}
             alt="cat"
             className={styles.picHolder}
           />
-          
-        
 
-        
+          <div className={styles.genreateField}>
+            <div className={styles.input} >
+              <input ref={genInput} className={styles.inputField} type="text" placeholder=" e.g cartoon, realistic, abstract"></input> 
+              <span className={styles.inputHint}>Keep it empty to generate a random style picture!</span>
+            </div>
+            
+            <button className={styles.genButton} onClick={(e) => genPictures(e)}>Generate</button>
 
-        <div className={styles.emotionHolder}>
-        <span className={styles.emotionHeader}> Tone </span>
-          <div className={styles.emotionHeader}>{tone}</div>
-          
-        </div>
-
+          </div>
         
 
         </div>
