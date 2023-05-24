@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import DotSelector from "./components/DotSelector";
 
 export default function Home() {
-  const startImage = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-eD3kAsNhHAxrkFMORPJyd4fJ/user-xEsKyOeJcuQxEO4yhNfBxzno/img-nBxINkGcMeYzgmAVotz5Xv6z.png?st=2023-05-22T19%3A40%3A25Z&se=2023-05-22T21%3A40%3A25Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-05-22T05%3A48%3A10Z&ske=2023-05-23T05%3A48%3A10Z&sks=b&skv=2021-08-06&sig=75ik2pHmmkbJKeQi3kmhqV%2B2dA96Pkec7LIKZvpdFNA%3D'
+  const startImage = 'https://cdn.leonardo.ai/users/75d00840-3fce-47fd-b4b0-a621bd5f9f69/generations/e5ded7d8-7921-41a1-831e-d493149b84ff/DreamShaper_v5_A_rustic_cabin_in_the_middle_of_a_dense_dark_fo_0.jpg'
   const [images, setImages] = useState([{}]);
   const [words, setWords] = useState('')
   const [text, setText] = useState("Once upon a time there was a cat going to a castle, to find food. The cat was happy but very hungry, but the prospect of food made the cat very excited for the future.");
