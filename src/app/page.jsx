@@ -26,11 +26,10 @@ export default function Home() {
     }
 
     const interval = setInterval(() => {
-     console.log('kööör')
      getPrompt(textArea.current.value)
      console.log('Done')
 
-    }, 60000);
+    }, 90000);
 
     dalleImage('Evening, Forest, Lost, Old House and Rain, abstract')
     console.log('start')
