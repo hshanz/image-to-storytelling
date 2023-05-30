@@ -1,6 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 import { generateImage, createPrompt, getEmotions, getImage } from "./lib/openai.mjs";
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
   const [words, setWords] = useState('')
   const [text, setText] = useState("Once upon a time there was a cat going to a castle, to find food. The cat was happy but very hungry, but the prospect of food made the cat very excited for the future.");
   const textArea = useRef();
+  const router = useRouter();
   
 
   useEffect(() => {
@@ -31,10 +33,18 @@ export default function Home() {
 
     }, 90000);
 
+    const timeout = setInterval(() => {
+        router.replace('/timeout')
+ 
+     }, 900000);
+
     dalleImage('Evening, Forest, Lost, Old House and Rain, abstract')
     console.log('start')
 
-    return () => clearInterval(interval);
+    return () =>{ 
+      clearInterval(interval); 
+      clearInterval(timeout)
+    }
    
 
   }, []);
